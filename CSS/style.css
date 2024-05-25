@@ -1,0 +1,50 @@
+
+.container-flex {
+    display: flex;
+    justify-content: center;
+}
+.container {
+    width: 300px;
+    padding: 10px 10px;
+    background-color: #000000d1;
+    border: 2px solid #000000d1;
+    border-radius: 5px;
+}
+
+/* display Screen */
+.display {
+    height: 50px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid black;
+    background: rgb(255 253 253 / 94%);
+    margin-bottom: 5px;
+}
+.row{
+    text-align: center;
+}
+.col{
+    text-align: center;
+}
+input{
+    text-align: center;
+    width: 40px;                                                                                                                
+    padding: 10px 10px;
+}
+/* buttons */
+button {
+    text-align: center;
+    width: 70px;
+    padding: 20px 20px;
+    border: 2px solid;
+    border-radius: 10px;
+    margin: 1px;
+}
+button:active {
+    transform: scale(0.9);
+    background-color: rgba(202, 202, 202, 0.94);
+}
+
+.scientific {
+    display: none;
+}

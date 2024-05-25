@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <style></style>
+</head>
+<body>
+    <div class="container-flex">
+        <div class="container">
+            <div class="row display" id="screen">
+                
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button value="C">C</button>
+                    <button value="/">/</button>
+                    <button value="*">*</button>
+                    <button value="-">-</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button value="7">7</button>
+                    <button value="8">8</button>
+                    <button value="9">9</button>
+                    <button value="+">+</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button value="4">4</button>
+                    <button value="5">5</button>
+                    <button value="6">6</button>
+                    <button value="=">=</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button value="1">1</button>
+                    <button value="2">2</button>
+                    <button value="3">3</button>
+                    <button id="toggle-scientific">s</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button value="%">%</button>
+                    <button value="0">0</button>
+                    <button value=".">.</button>
+                    <button value="(">(</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button value=")">)</button>
+                    <button value="log10(">log</button>
+                    <button value="log(">ln</button>
+                    <button value="**">^</button>
+                </div>
+            </div>
+            <div class="row scientific">
+                <div class="col-12">
+                    <button value="sqrt(">√</button>
+                    <button value="sin(">sin</button>
+                    <button value="cos(">cos</button>
+                    <button value="tan(">tan</button>
+                    
+                </div>
+            </div>
+            <div class="row scientific">
+                <div class="col-12">
+                    <button value="PI">π</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const screen = document.getElementById('screen');
+        let expression = '';
+        const scientificButtons = document.querySelectorAll('.scientific');
+
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', () => {
+                const value = button.value;
+
+                if (value === 'C') {
+                    expression = '';
+                    screen.textContent = '0';
+                } else if (value === '=') {
+                    try {
+                        const result = eval(expression
+                            .replace(/sin\(/g, 'Math.sin(')
+                            .replace(/cos\(/g, 'Math.cos(')
+                            .replace(/tan\(/g, 'Math.tan(')
+                            .replace(/sqrt\(/g, 'Math.sqrt(')
+                            .replace(/log10\(/g, 'Math.log10(')
+                            .replace(/log\(/g, 'Math.log(')
+                            .replace(/PI/g, 'Math.PI')
+                            .replace(/([0-9]+)%/g, '($1/100)')
+                            .replace(/(\d+\.?\d*)%/g, '($1/100)'));
+                        screen.textContent = result;
+                        expression = result.toString();
+                    } catch (e) {
+                        screen.textContent = 'Error';
+                        expression = '';
+                    }
+                } else if (button.id === 'toggle-scientific') {
+                    scientificButtons.forEach(btn => {
+                        btn.style.display = btn.style.display === 'flex' ? 'none' : 'flex';
+                    });
+                } else {
+                    if (expression === '0' && value !== '.') {
+                        expression = value;
+                    } else {
+                        expression += value;
+                    }
+                    screen.textContent = expression;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
